@@ -1,25 +1,19 @@
-var http = require('http');
-var url = require('url');
+var express = require('express');
 
+var app = express();
 
-http.createServer(function(req, res){
+app.get('/', function(req, res){
+	res.send('hello world');
+});
 
-	var queryData = url.parse(req.url, true).query;
-	
-	res.writeHead(200, {
-		'Conent-Type': 'text/plain'
-	});
-	
+app.get('/users', function(req, res){
+	res.send("Hello users");
+});	
 
-	if(qureyData.id){
-		res.end('Hellow user: ' + qureyData.id + '\n');
-	}else{
-		res.end('Unknown Request');
-	}
+app.get('/users/:id', function(req, res){
+	res.send("Hello users id:" + req.params.id);
+});	
 
-}).listen(8081);
-
-
-console.log("Server Running");
-
-//console.log("Hello World");
+app.listen(8081, function(){
+	console.log('live on 8081');
+});
